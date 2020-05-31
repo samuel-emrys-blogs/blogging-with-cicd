@@ -10,6 +10,8 @@
     "format": "standard",
     "sticky": false,
     "template": "",
-    "categories": [],
+    "categories": [
+        1
+    ],
     "tags": []
 }
