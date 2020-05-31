@@ -112,5 +112,69 @@ Excellent, now we can go about automating the publish process every time there i
 
 ### Creating a GitHub Action
 
+There is a guided tour on how to create an action available in the "Actions" tab of your GitHub repository, however since we know exactly what our action will consist of, we can just create a YAML file manually. Create a new file in your repository, `.github/workflows/publish.yml`, and populate it with the following:
 
+```yaml
+name: Publish Blog Post
+
+on:
+  push:
+    branches: 
+      - master
+
+jobs:
+  deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.7'
+    - name: Install dependencies
+      run: |
+        wget https://github.com/jgm/pandoc/releases/download/2.9.2.1/pandoc-2.9.2.1-1-amd64.deb -O /tmp/pandoc.deb
+        sudo dpkg -i /tmp/pandoc.deb
+        python -m pip install --upgrade pip
+        pip install git+https://github.com/samuel-emrys/gwbridge.git
+    - name: Publish
+      run: |
+        gwbridge publish --client-key ${{ secrets.WP_CLIENT_KEY }} --client-secret ${{ secrets.WP_CLIENT_SECRET }} --resource-owner-key ${{ secrets.WP_RESOURCE_OWNER_KEY }} --resource-owner-secret ${{ secrets.WP_RESOURCE_OWNER_SECRET }}
+    - name: Update metadata
+      run: |
+        git config --global user.name 'Your Name'
+        git config --global user.email 'your-user-name@users.noreply.github.com'
+        git commit -am "Automated metadata update"
+        git push
+```
+
+Make sure you change the `user.name` and `user.email` parameters to values relevant to you, and save and exit. Commit all of these files to your repository, and you should have a structure similar to the following:
+
+```bash
+/path/to/your/blog/post
+├── .deploy
+│   ├── config.json
+│   └── metadata.json
+├── .github
+│   └── workflows
+│       └── publish.yml
+├── .gitignore
+├── README.md
+└── img
+    ├── image1.png
+    └── image2.png
+```
+
+Now you can commit everything to your repository:
+
+```bash
+user@ubuntu:/path/to/your/blog/post $ git commit -am "Configured CI/CD pipeline for repository"
+user@ubuntu:/path/to/your/blog/post $ git push origin master
+```
+
+And now you should see the action run, and your Wordpress blog automatically updated with the content you push to this repository in the future. It's important to note that after pulling, you _may_ need to pull again. This is because, if it's creating a new post or updating the metadata, these changes will be propagated back to your repository so that new posts aren't created in the future, and the current one is updated. This will also allow you to change the metadata from your repository directly, which is a cool side effect.
+
+Anyway, I hope this has helped you improve your blogging workflow; if you have any questions or comments feel free to leave a comment below, and if you've noticed any issues with the article, or would like to improve it, feel free to submit an issue or pull request on the associated [GitHub repository](https://github.com/samuel-emrys-blogs/blogging-with-cicd)!
 
