@@ -3,14 +3,13 @@
     "slug": "",
     "status": "draft",
     "author": 1,
-    "excerpt": "",
-    "featured_media": "",
+    "excerpt": "<p>This post is also available on GitHub A couple of years ago, I started this blog. Normally when I&rsquo;m writing notes for myself, I write everything in markdown and version control it using git. This is enormously useful for making changes, and I don&rsquo;t need to maintain multiple versions of the same file on my [&hellip;]</p>\n",
+    "featured_media": 0,
     "comment_status": "open",
     "ping_status": "closed",
     "format": "standard",
-    "meta": "",
-    "sticky": "",
+    "sticky": false,
     "template": "",
-    "categories": "",
-    "tags": ""
+    "categories": [],
+    "tags": []
 }
