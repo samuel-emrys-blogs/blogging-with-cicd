@@ -1,10 +1,18 @@
 # How to use a Continuous Integration and Deployment (CI/CD) pipeline in your blogging workflow with gwbridge
 
-[This post is also available on GitHub](https://github.com/samuel-emrys-blogs/blogging-with-cicd)
-
-A couple of years ago, I started this blog. Normally when I'm writing notes for myself, I write everything in markdown and version control it using git. This is enormously useful for making changes, and I don't need to maintain multiple versions of the same file on my hard drive. I wanted to use this same process when blogging, but alas, this meant maintaining two copies of the same content; one on the Wordpress server and one on GitHub. This was difficult to manage, and inevitably led to differences between my two versions, primarily because it's not trivial to work out what changes I made on Wordpress after the fact.
+A couple of years ago, I started this blog. Normally when I'm writing notes for myself, I write everything in markdown and version control it using git. This is enormously useful for making changes, and I don't need to maintain multiple versions of the same file on my hard drive. I wanted to use this same process when blogging, but alas, this meant maintaining two copies of the same content; one on the Wordpress server and one on GitHub. This was difficult to manage, and inevitably led to differences between my two versions, primarily because it's not trivial to work out what changes I had made on Wordpress after the fact.
 
 The solution to this problem is to stop editing two distinct copies, and use the version on GitHub as the authoritative content. Using GitHub Actions, changes made to the content on GitHub can then be propagated to the Wordpress site, maintaining consistency between the two. To help achieve this, I wrote a program called [`gwbridge` (GitHub-Wordpress Bridge)](https://github.com/samuel-emrys/gwbridge). This program handles all of the logic involved with converting the markdown content to a format digestible by Wordpress.
+
+Aside from what I've already mentioned, there are a number of reasons why you might want to do this:
+
+1. You want your readers to be able to suggest issues with your content in a manageable way (via GitHub issues)
+2. You want your readers to be able to write their own additions to allow them to contribute to the blog content, open sourcing your blog to some degree (via Pull Requests)
+3. Your blog content is dynamic, and needs to be updated with some frequency. This will allow you to make changes easily, in a traceable way, without completely discarding the old content. It will always be available for users on GitHub where they can access your previous commits. You can even tag commits with helpful labels to allow your blog's history to be easier to navigate
+
+You might _not_ want to introduce a CI/CD pipeline if:
+
+1. You have predominantly static content. You don't update your posts, and prefer to publish a new one. Fair enough. I certainly think there's still value in a simplified editing workflow. I'm able to write my content in a plain text file, and commit it to GitHub to put it under version control and publish it. This negates any need for me to use Wordpress's clunky editor.
 
 In this guide, I'm going to cover the following:
 
@@ -176,5 +184,6 @@ user@ubuntu:/path/to/your/blog/post $ git push origin master
 
 And now you should see the action run, and your Wordpress blog automatically updated with the content you push to this repository in the future. It's important to note that after pulling, you _may_ need to pull again. This is because, if it's creating a new post or updating the metadata, these changes will be propagated back to your repository so that new posts aren't created in the future, and the current one is updated. This will also allow you to change the metadata from your repository directly, which is a cool side effect.
 
-Anyway, I hope this has helped you improve your blogging workflow; if you have any questions or comments feel free to leave a comment below, and if you've noticed any issues with the article, or would like to improve it, feel free to submit an issue or pull request on the associated [GitHub repository](https://github.com/samuel-emrys-blogs/blogging-with-cicd)!
+Anyway, I hope this has helped you improve your blogging workflow; if you have any questions or comments feel free to leave a comment below, and if you've noticed any issues with the article, or would like to improve it, feel free to submit an [issue](https://github.com/samuel-emrys-blogs/blogging-with-cicd/issues) or [pull request](https://github.com/samuel-emrys-blogs/blogging-with-cicd/issues)!
 
+[This post is also available on GitHub](https://github.com/samuel-emrys-blogs/blogging-with-cicd)
