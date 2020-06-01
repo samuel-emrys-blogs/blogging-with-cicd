@@ -1,13 +1,17 @@
 {
     "id": 290,
-    "slug": "",
+    "slug": "how-to-use-a-continuous-integration-and-deployment-ci-cd-pipeline-in-your-blogging-workflow-with-gwbridge",
     "status": "publish",
     "author": 1,
-    "excerpt": "Improve your Wordpress blogging workflow by implementing a continuous integration and deployment pipeline with git and gwbridge",
+    "excerpt": "<p>Improve your Wordpress blogging workflow by implementing a continuous integration and deployment pipeline with git and gwbridge</p>\n",
     "featured_media": 0,
     "comment_status": "open",
     "ping_status": "closed",
     "format": "standard",
     "sticky": false,
-    "template": ""
+    "template": "",
+    "categories": [
+        1
+    ],
+    "tags": []
 }
