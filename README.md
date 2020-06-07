@@ -152,10 +152,12 @@ jobs:
         gwbridge publish --client-key ${{ secrets.WP_CLIENT_KEY }} --client-secret ${{ secrets.WP_CLIENT_SECRET }} --resource-owner-key ${{ secrets.WP_RESOURCE_OWNER_KEY }} --resource-owner-secret ${{ secrets.WP_RESOURCE_OWNER_SECRET }}
     - name: Update metadata
       run: |
-        git config --global user.name 'Your Name'
-        git config --global user.email 'your-user-name@users.noreply.github.com'
-        git commit -am "Automated metadata update"
-        git push
+        if ! git diff-index --quiet HEAD --; then
+          git config --global user.name 'Samuel Dowling'
+          git config --global user.email 'samuel-emrys@users.noreply.github.com'
+          git commit -am "Automated metadata update"
+          git push
+        fi
 ```
 
 Make sure you change the `user.name` and `user.email` parameters to values relevant to you, and save and exit. Commit all of these files to your repository, and you should have a structure similar to the following:
